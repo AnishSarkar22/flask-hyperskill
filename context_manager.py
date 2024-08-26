@@ -1,0 +1,3 @@
+# invoking a context manager
+with statement as variable_name:
+    ...
