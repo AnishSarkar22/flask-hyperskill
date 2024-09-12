@@ -51,30 +51,62 @@
 24. `tearDown()` method is executed *after every* test method.
 25. We can get details for each test method by typing `-v`, or stop the tests after the first failure or error by typing `-f` in the command line.
 26. Unpacking Operators: THese are at the left of `=` operator. Using single asterik (*) or double asteriks (**) we can unpack elements from tuple, lists, dictionaries. Double can get *values* of dictionary but single can get only *keys*. See Unpacking.py for more.
-27. Context Managers: Used to close the files opened at right time and also release the descriptor when done using the file. See 
+27. Context Managers: Used to close the files opened at right time and also release the descriptor when done using the file.
+28. Types of tests are:
+        1.  Unit tests: Tests for components at a low level in an isolated manner, like a class method. These can be automated and it is recommended to have a lot of unit tests for different components.
+        2.  Integration tests: Tests to verify two or more components or services work well together.
+        3.  Functional tests: Tests two or more components, but focus on the business requirements of the application. These tests are similar to integration tests but they are expected to be correct from a functional point of view.
+        4.  End-to-End tests: Tests the application from a user point of view in an application environment, these are expensive to run when automated and it is recommended to have minimum required E2E tests.
+        5.  Regression tests: Regression tests are a combination of functional and non-functional tests that you run when the software has some changes. They validate that new software is not breaking existing functionality. Choose them carefully as they determine the time spent in testing in many cases.
+        6.  Performance tests: Tests that evaluate the performance of a software system under a specific workload. These tests help to measure the scalability, reliability, and responsiveness of an application. It can determine if an application meets performance requirements, locate bottlenecks and measure stability during peak traffic.
+        7.  Acceptance tests: These tests involve everything that is needed to get the software accepted. These may be functional tests, E2E tests, and performance tests. These tests are formally defined and can be used as a criterion for decision-making on software adoption.
+29. Best practices for `pytest` are:
+        1.  Store all tests in a `tests/` directory
+        2.  File names should strictly start with `test_`
+        3.  Function names should strictly start with `test`
+30. Requests in Python:
+        1.  `requests.post()`: A POST request allows you to send some additional data to the server. Unlike GET requests, where you could specify additional parameters in the query string, POST requests pass additional data in the **body** of the message (request). Example: `r = requests.post('http://bestblogever.com/posts', data=data)`
+        2.  `requests.put()`: PUT method replaces the resource at the given URL with the resource specified within the request. If there is originally no resource to replace on the server, PUT will create one. Example: `r = requests.put('http://bestblogever.com/posts/<post_id>', data=data)`
+        3.  `requests.delete()`: You might also want to remove a post from your blog. In order to do so, you'll need to send a DELETE request, which deletes the resource identified by the request URL. Example: `r = requests.delete('http://bestblogever.com/posts/<post_id>')`
+31. 
 
 ## Web Technologies Notes
 
 1. Standard Status codes:
-        1. 1xx: Informational
-        2. 2xx: Success
-        3. 3xx: Redirection
-        4. 4xx: Client Error
-        5. 5xx: Server Error
+         1. 1xx: Informational
+         2. 2xx: Success
+         3. 3xx: Redirection
+         4. 4xx: Client Error
+         5. 5xx: Server Error
 2. HTTP Methods: GET, POST, HEAD
 3. **REST (Representational State Transfer):** REST is NOT a protocol or a standard. REST usually works on top of HTTP and is one of the possible ways to use HTTP. It is not a standard, but rather a set of useful recommendations. A service (or app) that follows REST rules is called **RESTful**.
 4. 6 **REST** principles:
-      1. Client-server interaction model
-      2. Stateless
-      3. Cacheable
-      4. Uniform interface
-      5. Layered system
-      6. Code on demand [optional]
+          1. Client-server interaction model
+          2. Stateless
+          3. Cacheable
+          4. Uniform interface
+          5. Layered system
+          6. Code on demand [optional]
 5. HTTP methods for RESTful services:
-      1. POST => To create new resources.
-      2. GET => Retrieve or read the resource.
-      3. PUT => Either creates a resource by the specified ID or updates an existing one.
-      4. DELETE => To remove a resource identified by a specific URI (ID).
+          1. POST => To create new resources.
+          2. GET => Retrieve or read the resource.
+          3. PUT => Either creates a resource by the specified ID or updates an existing one.
+          4. DELETE => To remove a resource identified by a specific URI (ID).
+6. `wget` is installed on most linux distros.
+7. `curl` can upload files to the server.
+8. `curl` and `wget` can download files from the internet.
+9.  Advantages of `wget` and `curl`:
+          1. Can access quite some advanced features, not available otherwise.
+          2. With `wget` and `curl` you can check the file integrity and trustworthiness by verifying the checksum.
+          3. You can also automatically set the amount of time you are ready to wait or how many times you want to retry the request.
+10. Disadvantages of `wget` and `curl`:
+          1. They require you to already know the URL from where you want to download the file.
+          2. It takes time to practice knowing them well.
+11. **Idempotency** is an important concept of some HTTP requests. A request is called idempotent if sending the same request more than once doesn't introduce additional changes to the state of the server. `GET`, `PUT`, `DELETE` are idempotent. `POST` is not idempotentbecause a POST request may add new data to the server.
+12. There are two versions of the IP protocol:
+        1.  IPv4: consists of four numbers from 0 to 255 separated by dots. uses a 32-bit value for its Internet addresses, it means that the protocol can provide support for 2^32 IP addresses in total that is equal to around 4.29 billion various addresses. Example: 132.245.4.216
+        1.  IPv6: uses 128 bits to represent an address that allows for 2^128 different addresses. Example: 0de2:041a:7d43:65ab:9a63:a63e:aa78:34c2
+13. **Loopback addresses:** There are special IP addresses that point to the local computer, that is, the computer you are using right now. They are called loopback addresses. They are useful when you want to connect to a server on your computer.
 
 ## UI Notes
 
@@ -95,8 +127,28 @@
 
 ## Flask Notes
 
-1. `make_response` function which handles simple responses. 
+1. `make_response` function which handles simple responses. It is an instance of the `Response` class.
 2. `jsonify` function is used to convert Python objects (like dictionaries or lists) into proper JSON responses. **jsonify** automatically sets the Content-Type header of the response to 'application/json'. This tells the client that the response body contains JSON data.
+3. Routes: Flask uses decorators. Example of routes- `@app.route('/')`
+4. Query Parameters: Code for the example(http://127.0.0.1:5000/users?city=London&age=20):
+
+                                    @app.route('/users')
+                                    def users():
+                                          query_params = request.args  # returns a dictionary
+                                          city = query_params.get("city")
+                                          age = query_params.get("age")
+                                          # ... do your magic with the params
+                                          # considering you've had the predefined method 'get_users' for retrieving users
+                                          result = get_users(city, age)
+                                          return result
+
+5. **Jinja2:**
+      1. {% ... %} : conditional and looping statements like if, for are enclosed within a string that starts a block {% and one that ends it %}.
+      2. {{ ... }}: variables are enclosed within variables that start {{ and end }} a string. With their help, the value of a variable can be printed to the template output.
+      3. {% if flag %}
+6. **Redirects:** Example: see redirect.py file
+7. Flash Messages/ pop-ups: We can pass a category to the flash method to indicate that the message belongs to a specific type. For example, if you want to notify users that they are looking at the site for 5 hours straight, you can use the info category. If you want to tell your users that they don't have the right to do something, use error. Example: see popups.py
+
 
 ## SQL Notes
 
@@ -119,9 +171,4 @@
 7. Types of normal forms:
       1. First normal form (1NF): When all data in its cells are atomic i.e simple and non-separable.
       2. Second normal form (2NF): It is based on **functional dependance**. It is more of a semantic concept and is denoted as **x->y** (read as x functionally defines y, or y is functionally dependent on x). For example, x1->y1, x1->y2 then y1 = y2. Here x is **dependency determinant**.
-
-## MYSQL Notes
-
-1. schema/structures: design using columns
-2. individual data: rows
-3. 
+8. Object Mapping: The structure of data in the source system may be different from the structure of data in the destination system. 

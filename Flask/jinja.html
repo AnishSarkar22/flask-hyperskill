@@ -1,0 +1,17 @@
+<!-- advanced use of jinja-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mega Template</title>
+</head>
+<body>
+    <h1>There is a eternal text</h1>
+    {% if flags[0] %}
+    <h2>And this text is displayed only when the first argument, that passed into the render_template as list method equals True</h2>
+    {% elif flags[1] or flags[2] %}
+    <h2>Oh! This text is displayed when we define the second element of the passed list as True!</h2>
+    {% else %}
+    <h2>Gorgeus! Third argument, that displayed only when third element of passed list is True!</h2>
+    {% endif %} 
+</body>
+</html>
